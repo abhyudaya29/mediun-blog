@@ -61,7 +61,7 @@ exports.createUser=async(req,res)=>{
         console.log("error occured in create User",error)
         return res.status(500).json({
             success:false,
-            message:error
+            message:"error while Creating User"
         })
         
     }
@@ -93,7 +93,7 @@ exports.signIn=async(req,res)=>{
         if(await bcrypt.compare(password,user.password)){
             const payload={
                 email:user.email,
-                id:user._id,
+                id:user.id,
                 username:user.username
 
             }
@@ -122,7 +122,7 @@ exports.signIn=async(req,res)=>{
         console.log("error while sign-in",error)
         return res.status(500).json({
             success:false,
-            message:error
+            message:"error while sign-In"
         })
         
     }
