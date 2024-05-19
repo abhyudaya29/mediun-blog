@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const userRoute=require('./routes/user.routes');
 const blogRoute=require("./routes/blog.routes");
+const cors = require('cors');
 const app=express()
 app.use(bodyParser.json());
 
@@ -10,7 +11,13 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(express.json())
-const PORT=3000
+app.use(
+    cors({
+        origin: "*",
+        credentials: true,
+    })
+);
+const PORT=4000
 // User Route
 app.use('/api/v1/user',userRoute);
 

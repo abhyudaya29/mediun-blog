@@ -100,6 +100,17 @@ exports.getBlog=async(req,res)=>{
         const findBlog=await prisma.blog.findUnique({
             where:{
                 id:parseInt(id, 10)
+            },
+            select:{
+                content:true,
+                title:true,
+                id:true,
+                publishedAt:true,
+                author:{
+                    select:{
+                        username:true
+                    }
+                }
             }
         })
         console.log(findBlog,">>blog data");
@@ -129,7 +140,19 @@ exports.getBlog=async(req,res)=>{
 
 exports.getAllBlogs=async(req,res)=>{
     try {
-        const allBlogs=await prisma.blog.findMany({});
+        const allBlogs=await prisma.blog.findMany({
+            select:{
+                content:true,
+                title:true,
+                id:true,
+                publishedAt:true,
+                author:{
+                    select:{
+                        username:true
+                    }
+                }
+            }
+        });
         console.log(allBlogs);
         if(!allBlogs){
             return res.status(404).json({
