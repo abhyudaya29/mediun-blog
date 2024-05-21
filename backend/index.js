@@ -23,13 +23,13 @@ app.use('/api/v1/user',userRoute);
 
 //Blog Route
 app.use('/api/v1/blog',blogRoute)
-app.get('/',(req,res)=>{
-    res.json({
-        message:"Hello user",
-        success:true,
-        status:200
-    })
-})
+// app.get('/',(req,res)=>{
+//     res.json({
+//         message:"Hello user",
+//         success:true,
+//         status:200
+//     })
+// })
 app.listen(PORT,()=>{
     console.log(`App is listning at: ${PORT}`)
 })
