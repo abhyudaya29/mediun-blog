@@ -5,7 +5,7 @@ exports.auth=async(req,res,next)=>{
     try {
         // get/fetch token
         console.log("token before middleware executed");
-        const token=req.cookies.token ||req.body.token ||req.headers.authorization.replace("Bearer ","")
+        const token=req.cookies.token ||req.body.token ||req.headers.authorization.split(" ")[1];
         console.log(token,"???token fetched");
         if(!token){
             return res.status(404).json({
@@ -28,7 +28,7 @@ exports.auth=async(req,res,next)=>{
         console.log("Error in auth middleware",error);
         return res.status(500).json({
             success:false,
-            message:error
+            message:"error in middleware"
         })
         
     }
