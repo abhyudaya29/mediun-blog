@@ -106,6 +106,7 @@ exports.getBlog=async(req,res)=>{
                 title:true,
                 id:true,
                 publishedAt:true,
+                thumbnail:true,
                 author:{
                     select:{
                         username:true
@@ -146,6 +147,7 @@ exports.getAllBlogs=async(req,res)=>{
                 title:true,
                 id:true,
                 publishedAt:true,
+                thumbnail:true,
                 author:{
                     select:{
                         username:true

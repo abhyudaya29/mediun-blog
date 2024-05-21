@@ -3,8 +3,12 @@ import Quote from '../components/Quote';
 import { useForm } from 'react-hook-form';
 import {Link, useNavigate} from "react-router-dom"
 import axios from "axios"
+import { useDispatch } from 'react-redux';
+import { login, tokenSet } from '../redux/slices/auth.slice';
+import toast, { Toaster } from 'react-hot-toast';
 const BACKEND_URL=import.meta.env.VITE_APP_BACKEND_URL
 const SignIn = () => {
+  const dispatch=useDispatch()
   const navigate=useNavigate()
   const { register, handleSubmit,reset, formState: { errors,isSubmitSuccessful } } = useForm();
 
@@ -18,10 +22,16 @@ const SignIn = () => {
       console.log(response,">>response")
       const jwt=response.data.token
       localStorage.setItem("token",jwt);
+      dispatch(login(response.data.user))
+      dispatch(tokenSet(response.data.token))
+      toast.success("Logedin successgully")
+
       navigate('/blogs')
 
     } catch (error) {
-      console.log(error,"Error occured")
+      console.log(error,"Error occured");
+      toast.error("error in Login")
+      navigate('/login')
       
     }
     console.log(data, ">>data");

@@ -1,21 +1,38 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import toast, { ToastIcon } from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 const BACKEND_URL=import.meta.env.VITE_APP_BACKEND_URL
 const Publish = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const navigate=useNavigate()
+  const token=useSelector((state)=>state.auth.auth.token)
+  console.log(token,">>token for publish")
 
+  // const[error,setError]=useState(null)
+  // console.log(error,"error for use state")
   const publishPost=async()=>{
-    const response=await axios.post(`${BACKEND_URL}/blog/create-blog`,{
+    try {
+      const response=await axios.post(`${BACKEND_URL}/blog/create-blog`,{
         title,
         content
     },{
         headers:{
-            Authorization:localStorage.getItem('token')
+          Authorization: `Bearer ${token}`,
         }
     });
+    console.log(response,"post data")
+    toast.success("Blog posted Successfully")
+    navigate('/blogs')
+      
+    } catch (errors) {
+      console.log(errors,"Error in posting blog")
+      toast.error(errors.response.data.message)
+
+      
+    }
     
   }
 

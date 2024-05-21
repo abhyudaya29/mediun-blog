@@ -6,6 +6,7 @@ import Blog from './pages/Blog'
 import SignUp from './pages/SignUp'
 import FullBlogs from './pages/FullBlogs'
 import Publish from './components/Publish'
+import AppBar from './components/AppBar'
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
     <>
     <div>
       {/* <Component/> */}
+      <AppBar/>
       <Routes>
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/Login' element={<SignIn/>}/>

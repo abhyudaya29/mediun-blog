@@ -2,9 +2,12 @@ import React, { useEffect } from 'react';
 import Quote from '../components/Quote';
 import { useForm } from 'react-hook-form';
 import {Link, useNavigate} from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 import axios from 'axios';
+import { login,tokenSet } from '../redux/slices/auth.slice';
 const BACKEND_URL=import.meta.env.VITE_APP_BACKEND_URL
 const SignUp = () => {
+  const dispatch=useDispatch()
   const navigate=useNavigate()
 
   const { register, handleSubmit,reset, formState: { errors,isSubmitSuccessful } } = useForm();
@@ -18,9 +21,12 @@ const SignUp = () => {
         email,
         password
       });
+      console.log(response,"user data")
+
       if(!response){
         throw new Error(response.data.message)
       }
+      
       navigate('/Login')
 
 
